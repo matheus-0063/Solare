@@ -14,6 +14,10 @@ namespace Solare.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
+            builder.Property(c => c.TipoProduto)
+                .IsRequired()
+                .HasConversion<int>();
+
             builder.Property(p => p.Descricao)
                 .IsRequired()
                 .HasColumnType("varchar(1000)");

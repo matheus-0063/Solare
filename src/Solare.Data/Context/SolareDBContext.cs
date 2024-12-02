@@ -31,5 +31,6 @@ namespace Solare.Data.Context
         public DbSet<EnderecoSimulacao> EnderecoSimulacoes { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Simulacao> Simulacoes { get; set; }
+        public DbSet<Contato> Contatos { get; set; }
     }
 }

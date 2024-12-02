@@ -17,6 +17,10 @@ namespace Solare.Data.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(200)");
 
+            builder.Property(c => c.TipoImovel)
+                .IsRequired()
+                .HasConversion<int>();
+
             builder.Property(s => s.OrcamentoMaximo)
                 .IsRequired()
                 .HasColumnType("decimal(17,2)");

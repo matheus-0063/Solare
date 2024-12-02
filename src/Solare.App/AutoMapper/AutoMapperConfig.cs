@@ -13,6 +13,7 @@ namespace Solare.App.AutoMapper
             CreateMap<EnderecoSimulacao, EnderecoSimulacaoViewModel>().ReverseMap();
             CreateMap<Produto, ProdutoViewModel>().ReverseMap();
             CreateMap<Simulacao, SimulacaoViewModel>().ReverseMap();
+            CreateMap<Contato, ContatoViewModel>().ReverseMap();
         }
     }
 }
