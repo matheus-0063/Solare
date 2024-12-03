@@ -40,10 +40,6 @@ namespace Solare.Data.Mappings
             builder.Property(s => s.EspacoTotalInstalacao)
                 .IsRequired()
                 .HasColumnType("decimal(17,2)");
-
-            //1 : 1  => Simulacao : Endereco
-            builder.HasOne(s => s.EnderecoSimulacao)
-                .WithOne(e => e.Simulacao);
         }
     }
 }

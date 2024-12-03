@@ -32,5 +32,6 @@ namespace Solare.Data.Context
         public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<Simulacao> Simulacoes { get; set; }
         public DbSet<Contato> Contatos { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
     }
 }

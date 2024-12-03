@@ -8,6 +8,8 @@ namespace Solare.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
+            builder.ToTable("Produtos");
+            
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Nome)
@@ -42,8 +44,6 @@ namespace Solare.Data.Mappings
 
             builder.Property(p => p.Saida)
                 .IsRequired(false);
-
-            builder.ToTable("Produtos");
         }
     }
 }

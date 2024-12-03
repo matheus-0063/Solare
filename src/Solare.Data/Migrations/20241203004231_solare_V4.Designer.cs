@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Solare.Data.Context;
 
@@ -11,9 +12,11 @@ using Solare.Data.Context;
 namespace Solare.Data.Migrations
 {
     [DbContext(typeof(SolareDBContext))]
-    partial class SolareDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241203004231_solare_V4")]
+    partial class solare_V4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

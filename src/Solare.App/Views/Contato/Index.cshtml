@@ -32,11 +32,17 @@
                     @Html.DisplayFor(modelItem => item.Telefone)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TipoContato)
+                    @if (item.TipoContato == 1)
+                    {
+                        @:Fornecedor
+                    }
+                    else if (item.TipoContato == 2)
+                    {
+                        @:Cliente
+                    }
                 </td>
                 <td class="text-right">
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><span class="fa fa-search"></span></a>
-                    <a class="btn btn-danger" surpress-by-claim-name="Contato" surpress-by-claim-value="Excluir" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash"></span></a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                 </td>
             </tr>
         }

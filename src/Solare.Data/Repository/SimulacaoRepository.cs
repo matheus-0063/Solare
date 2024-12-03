@@ -8,5 +8,19 @@ namespace Solare.Data.Repository
     {
         public SimulacaoRepository(SolareDBContext context) : base(context) { }
 
+        public Task<IEnumerable<Simulacao>> ObterSimulacaoPorCliente(Guid clienteId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Simulacao> ObterSimulacoesCliente(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Simulacao>> ObterSimulacoesClientes()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -38,9 +38,9 @@
                     @Html.DisplayFor(modelItem => item.Ativo)
                 </td>
                 <td class="text-right">
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><span class="fa fa-search"></span></a>
-                    <a class="btn btn-warning" surpress-by-claim-name="Fornecedor" surpress-by-claim-value="Editar" asp-action="Edit" asp-route-id="@item.Id"><span class="fa fa-pencil-alt"></span></a>
-                    <a class="btn btn-danger" surpress-by-claim-name="Fornecedor" surpress-by-claim-value="Excluir" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash"></span></a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
+                    <a class="btn btn-warning" surpress-by-claim-name="Fornecedor" surpress-by-claim-value="Editar" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                    <a class="btn btn-danger" surpress-by-claim-name="Fornecedor" surpress-by-claim-value="Excluir" asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
                 </td>
             </tr>
         }

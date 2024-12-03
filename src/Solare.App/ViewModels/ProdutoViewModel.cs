@@ -23,7 +23,7 @@ namespace Solare.App.ViewModels
         public string Descricao { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatorio")]
-        public decimal Valor { get; set; }
+        public double Valor { get; set; }
 
         [ScaffoldColumn(false)]
         public DateTime DataCadastro { get; set; }
@@ -32,18 +32,18 @@ namespace Solare.App.ViewModels
         public bool Ativo { get; set; }
 
         [DisplayName("Dimensão do produto")]
-        public decimal DimensaoEmMtQuadrado { get; set; }
+        public double DimensaoEmMtQuadrado { get; set; }
 
         [DisplayName("Eficiência")]
-        public decimal Eficiencia { get; set; }
+        public double Eficiencia { get; set; }
 
         [DisplayName("Potência")]
-        public decimal Potencia { get; set; }
+        public double Potencia { get; set; }
 
-        public decimal Corrente { get; set; }
+        public double Corrente { get; set; }
 
         [DisplayName("Tensão")]
-        public decimal Tensao { get; set; }
+        public double Tensao { get; set; }
 
         public int Saida { get; set; }
 

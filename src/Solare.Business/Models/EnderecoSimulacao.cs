@@ -2,7 +2,7 @@
 {
     public class EnderecoSimulacao : Entity
     {
-        public Guid? SimulacaoId { get; set; }
+        public Guid? ClienteId { get; set; }
 
         public string Logradouro { get; set; }
         public string Numero { get; set; }
@@ -13,6 +13,6 @@
         public string Estado { get; set; }
 
         /* EF Relation */
-        public Simulacao Simulacao { get; set; }
+        public Cliente Cliente { get; set; }
     }
 }

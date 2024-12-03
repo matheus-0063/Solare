@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Solare.App.ViewModels;
 using Solare.Business.Interfaces;
 using Solare.Business.Models;
-using Solare.Data.Repository;
 
 namespace Solare.App.Controllers
 {
@@ -24,7 +22,7 @@ namespace Solare.App.Controllers
         [Route("contato")]
         public async Task<IActionResult> Index()
         {
-            return View();
+            return View(_mapper.Map<IEnumerable<ContatoViewModel>>(await _contatoRepository.ObterTodos()));
         }
 
         [AllowAnonymous]
@@ -34,44 +32,38 @@ namespace Solare.App.Controllers
             return View();
         }
 
-        [Route("novo-contato")]
-        [HttpPost]
+        [AllowAnonymous]
+        [HttpPost("novo-contato")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ContatoViewModel contatoViewModel)
         {
             if (!ModelState.IsValid) return View(contatoViewModel);
 
-            var fornecedor = _mapper.Map<Contato>(contatoViewModel);
-            await _contatoRepository.Adicionar(fornecedor);
+            var contato = _mapper.Map<Contato>(contatoViewModel);
+            await _contatoRepository.Adicionar(contato);
 
             return RedirectToAction("Obrigado");
         }
 
-        public ActionResult Details(int id)
+        [Route("detalhes-contato/{id:guid}")]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var contatoViewModel = await ObterDetalhesContato(id);
+
+            if (contatoViewModel == null) return NotFound();
+            return View(contatoViewModel);
+        }
+
+        [AllowAnonymous]
+        public ActionResult Obrigado()
         {
             return View();
         }
 
-
-        // GET: ContatoController/Delete/5
-        public ActionResult Delete(int id)
+        private async Task<ContatoViewModel> ObterDetalhesContato(Guid id)
         {
-            return View();
+            return _mapper.Map<ContatoViewModel>(await _contatoRepository.ObterPorId(id));
         }
 
-        // POST: ContatoController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
