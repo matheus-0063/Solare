@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Solare.App.ViewModels;
 using Solare.Business.Interfaces;
 using Solare.Business.Models;
+using Solare.Data.Repository;
 
 namespace Solare.App.Controllers
 {
@@ -12,14 +13,17 @@ namespace Solare.App.Controllers
     {
         private readonly ISimulacaoRepository _simulacaoRepository;
         private readonly IClienteRepository _clienteRepository;
+        private readonly IProdutoRepository _produtoRepository;
         private readonly IMapper _mapper;
 
         public SimulacaoController(ISimulacaoRepository simulacaoRepository,
                                   IClienteRepository clienteRepository,
+                                  IProdutoRepository produtoRepository,
                                   IMapper mapper)
         {
             _simulacaoRepository = simulacaoRepository;
             _clienteRepository = clienteRepository;
+            _produtoRepository = produtoRepository;
             _mapper = mapper;
         }
 
@@ -95,6 +99,19 @@ namespace Solare.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("relatorio-simulacao/{id:guid}")]
+        public async Task<IActionResult> Relatorio(Guid id)
+        {
+            var relatorioViewModel = await MontarRelatorio(id);
+
+            if (relatorioViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(relatorioViewModel);
+        }
+
         private async Task<SimulacaoViewModel> ObterSimulacao(Guid id)
         {
             var simulacao = _mapper.Map<SimulacaoViewModel>(await _simulacaoRepository.ObterSimulacoesCliente(id));
@@ -106,6 +123,42 @@ namespace Solare.App.Controllers
         {
             simulacao.Clientes = _mapper.Map<IEnumerable<ClienteViewModel>>(await _clienteRepository.ObterTodos());
             return simulacao;
+        }
+
+        private async Task<IEnumerable<ProdutoViewModel>> ObterProdutos()
+        {
+            var produtos = await _produtoRepository.ObterTodos();
+
+            return produtos.Select(produto => new ProdutoViewModel
+            {
+                Nome = produto.Nome,
+                Valor = produto.Valor,
+                Ativo = produto.Ativo
+            });
+        }
+
+        private double CalcularTotalGasto(IEnumerable<ProdutoViewModel> produtos)
+        {
+            return produtos.Sum(p => p.Valor);
+        }
+
+        private async Task<RelatorioViewModel> MontarRelatorio(Guid simulacaoId)
+        {
+            var simulacao = await _simulacaoRepository.ObterPorId(simulacaoId);
+            if (simulacao == null)  return null;
+
+            var cliente = await _clienteRepository.ObterPorId(simulacao.ClienteId);
+            var produtos = await ObterProdutos();
+            var totalGasto = CalcularTotalGasto(produtos);
+
+            return new RelatorioViewModel
+            {
+                SimulacaoId = simulacao.Id,
+                NomeCliente = cliente.Nome,
+                NomeSimulacao = simulacao.Nome,
+                Produtos = produtos,
+                TotalGasto = totalGasto
+            };
         }
     }
 
