@@ -1,4 +1,5 @@
-﻿using Solare.Business.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Solare.Business.Interfaces;
 using Solare.Business.Models;
 using Solare.Data.Context;
 
@@ -8,19 +9,23 @@ namespace Solare.Data.Repository
     {
         public SimulacaoRepository(SolareDBContext context) : base(context) { }
 
-        public Task<IEnumerable<Simulacao>> ObterSimulacaoPorCliente(Guid clienteId)
+        public async Task<IEnumerable<Simulacao>> ObterSimulacaoPorCliente(Guid id)
         {
-            throw new NotImplementedException();
+            return await Buscar(s => s.ClienteId == id);
         }
 
-        public Task<Simulacao> ObterSimulacoesCliente(Guid id)
+        public async Task<Simulacao> ObterSimulacoesCliente(Guid id)
         {
-            throw new NotImplementedException();
+            return await Db.Simulacoes
+                .AsNoTracking()
+                .Include(c => c.Cliente)
+                .FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public Task<IEnumerable<Simulacao>> ObterSimulacoesClientes()
+        public async Task<IEnumerable<Simulacao>> ObterSimulacoesClientes()
         {
-            throw new NotImplementedException();
+            return await Db.Simulacoes.AsNoTracking().Include(s => s.Cliente)
+                .OrderBy(p => p.Nome).ToListAsync();
         }
     }
 }

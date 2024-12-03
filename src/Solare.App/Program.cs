@@ -31,6 +31,8 @@ namespace Solare.App
             builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
             builder.Services.AddScoped<ISimulacaoRepository, SimulacaoRepository>();
             builder.Services.AddScoped<IContatoRepository, ContatoRepository>();
+            builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+            builder.Services.AddScoped<IEnderecoSimulacaoRepository, EnderecoSimulacaoRepository>();
 
             // Adicionando a tela de erro de banco de dados (para desenvolvimento)
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();

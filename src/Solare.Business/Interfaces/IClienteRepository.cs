@@ -4,6 +4,7 @@ namespace Solare.Business.Interfaces
 {
     public interface IClienteRepository : IRepository<Cliente>
     {
-        Task<Cliente> ObterClienteSimulacao(Guid id);
+        Task<Cliente> ObterClienteEnderecoSimulacao(Guid id);
+        Task<Cliente> ObterClienteSimulacoesEndereco(Guid id);
     }
 }

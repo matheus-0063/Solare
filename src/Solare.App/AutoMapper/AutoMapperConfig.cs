@@ -14,6 +14,7 @@ namespace Solare.App.AutoMapper
             CreateMap<Produto, ProdutoViewModel>().ReverseMap();
             CreateMap<Simulacao, SimulacaoViewModel>().ReverseMap();
             CreateMap<Contato, ContatoViewModel>().ReverseMap();
+            CreateMap<Cliente, ClienteViewModel>().ReverseMap();
         }
     }
 }
