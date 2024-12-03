@@ -145,11 +145,25 @@ namespace Solare.App.Controllers
         private async Task<RelatorioViewModel> MontarRelatorio(Guid simulacaoId)
         {
             var simulacao = await _simulacaoRepository.ObterPorId(simulacaoId);
-            if (simulacao == null)  return null;
+            if (simulacao == null) return null;
 
             var cliente = await _clienteRepository.ObterPorId(simulacao.ClienteId);
             var produtos = await ObterProdutos();
             var totalGasto = CalcularTotalGasto(produtos);
+
+            double potenciaModulo = 400;
+            double potenciaInversor = 5000;
+            double irradiacaoMedia = 5;
+            const double valorMedioInstalacao = 5000.00;
+
+            double consumoMensal = simulacao.ConsumoMedioMensal;
+
+            double energiaGeradaPorModulo = (potenciaModulo / 1000) * irradiacaoMedia * 30;
+
+            int quantidadeModulos = (int)Math.Ceiling(consumoMensal / energiaGeradaPorModulo);
+
+            double potenciaTotalSistema = quantidadeModulos * (potenciaModulo / 1000);
+            int quantidadeInversores = (int)Math.Ceiling(potenciaTotalSistema / (potenciaInversor / 1000));
 
             return new RelatorioViewModel
             {
@@ -157,7 +171,11 @@ namespace Solare.App.Controllers
                 NomeCliente = cliente.Nome,
                 NomeSimulacao = simulacao.Nome,
                 Produtos = produtos,
-                TotalGasto = totalGasto
+                ValorTotalProdutos = totalGasto,
+                ValorInstalacao = valorMedioInstalacao,
+                QuantidadeModulos = quantidadeModulos,
+                QuantidadeInversores = quantidadeInversores,
+                ValorTotal = valorMedioInstalacao + totalGasto
             };
         }
     }

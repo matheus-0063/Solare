@@ -53,15 +53,41 @@
 <h5>Resumo</h5>
 <dl>
     <dt>
-        Valor Total
+        Valor Total dos Produtos
     </dt>
     <dd>
-        @Model.TotalGasto.ToString("C")
+        @Model.ValorTotalProdutos.ToString("C")
+    </dd>
+    <dt>
+        Valor médio da mão de obra
+    </dt>
+    <dd>
+        @Model.ValorInstalacao.ToString("C")
+    </dd>
+    <dt>
+        Valor Total da instalação
+    </dt>
+    <dd>
+        @Model.ValorTotal.ToString("C")
+    </dd>
+    <dt>
+        Quantidade de Módulos Necessários
+    </dt>
+    <dd>
+        @Model.QuantidadeModulos
+    </dd>
+
+    <dt>
+        Quantidade de Inversores Necessários
+    </dt>
+    <dd>
+        @Model.QuantidadeInversores
     </dd>
 </dl>
 
 <div>
     <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
 </div>
+
 
 
