@@ -104,6 +104,7 @@ namespace Solare.App.Controllers
 
             if (fornecedor == null) return NotFound();
 
+            await _enderecoRepository.Remover(fornecedor.Endereco.Id);
             await _fornecedorRepository.Remover(id);
 
             return RedirectToAction("Index");

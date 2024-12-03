@@ -3,6 +3,6 @@
     public enum TipoContato
     {
         Fornecedor = 1,
-        Cliente
+        Cliente = 2
     }
 }
