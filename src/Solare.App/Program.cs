@@ -50,7 +50,7 @@ namespace Solare.App
             // Gerando a APP
             var app = builder.Build();
 
-            // Configuração conforme os ambientes
+            // Configuraï¿½ï¿½o conforme os ambientes
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
